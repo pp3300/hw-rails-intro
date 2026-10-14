@@ -1,0 +1,11 @@
+one:
+  title: "Aladdin"
+  rating: "G"
+  description: "A kindhearted street urchin and a power-hungry Grand Vizier..."
+  release_date: 1992-11-25 00:00:00
+
+two:
+  title: "When Harry Met Sally"
+  rating: "R"
+  description: "Harry and Sally have known each other for years..."
+  release_date: 1989-07-21 00:00:00
