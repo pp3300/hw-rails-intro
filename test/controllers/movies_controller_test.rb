@@ -28,6 +28,27 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
     assert_select "select#sort_by option[value=release_date][selected=selected]"
   end
 
+  test "should remember ratings and sort in session and redirect when params missing" do
+    get movies_url, params: { ratings: { "G" => "1" }, sort_by: "title" }
+    assert_response :success
+
+    get movies_url
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    assert_select "input[id=ratings_G][checked=checked]"
+    assert_select "select#sort_by option[value=title][selected=selected]"
+  end
+
+  test "should show all ratings when refreshing with no checkboxes checked" do
+    get movies_url, params: { commit: "Refresh" }
+    assert_response :success
+    assert_select "input[id=ratings_G][checked=checked]"
+    assert_select "input[id=ratings_PG][checked=checked]"
+    assert_select "input[id=ratings_PG-13][checked=checked]"
+    assert_select "input[id=ratings_R][checked=checked]"
+  end
+
   test "should get new" do
     get new_movie_url
     assert_response :success
