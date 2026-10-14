@@ -10,6 +10,24 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should filter by ratings" do
+    get movies_url, params: { ratings: { "G" => "1" } }
+    assert_response :success
+    assert_select "input[id=ratings_G][checked=checked]"
+  end
+
+  test "should sort by title" do
+    get movies_url, params: { sort_by: "title" }
+    assert_response :success
+    assert_select "select#sort_by option[value=title][selected=selected]"
+  end
+
+  test "should sort by release_date" do
+    get movies_url, params: { sort_by: "release_date" }
+    assert_response :success
+    assert_select "select#sort_by option[value=release_date][selected=selected]"
+  end
+
   test "should get new" do
     get new_movie_url
     assert_response :success
